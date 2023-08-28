@@ -1,21 +1,22 @@
-import { Box } from "@mui/material";
-import React from "react";
-import { MainMenu } from "./MainMenu";
+import { AppBar, Box, Button, Toolbar, Typography } from '@material-ui/core';
+import {useStyle} from './RbStyles';
+import { LoginRegister } from './LoginRegister';
 
 export const Home = () => {
+    const classes = useStyle();
     return (
-        <Box component='div' sx={{ display: 'block', background: '#ddd   ' }}>
-            <MainMenu />
-            <Box sx={{
-                display: 'grid',
-                gap: 1,
-                gridTemplateColumns: 'repeat(2, 1fr)', width: '85%', margin: 'auto'
-            }}>
-                <Box component="div" sx={{ display: 'block', border: '1px solid red', width: '100%', padding: '55px 15px' }}>
-                    <Box></Box>
-                </Box>
-                <Box component="div" sx={{ display: 'block', border: '1px solid red', width: '100%', padding: '55px 15px' }}>the dog</Box>
+        <>
+            <AppBar position="fixed" className={classes.navBar}>
+                <Toolbar className={classes.spaceBetweenFlexbox}>
+                    <Typography className={classes.logo}>
+                        <span style={{fontSize: 24}}>R</span>esume <span style={{fontSize: 24}}>B</span>uilder 
+                    </Typography>
+                    <Button className={classes.actionButton}>Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Box>
+                <LoginRegister />
             </Box>
-        </Box>
+        </>
     )
 }
