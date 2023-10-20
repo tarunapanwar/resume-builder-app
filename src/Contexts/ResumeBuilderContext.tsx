@@ -50,31 +50,45 @@ interface IResumeBuilder {
 }
 
 interface IResumeContextProps {
-    resumeData: IResumeBuilder | null;
-    setResumeData: (resumeData: IResumeBuilder) => void;
+    details: IResumeBuilder;
+    setDetails: React.Dispatch<React.SetStateAction<IResumeBuilder>>;
 }
 
-const ResumeContext = React.createContext<IResumeContextProps>({
-    resumeData: null,
-    setResumeData: () => null
-});
+const ResumeContext = React.createContext<IResumeContextProps | null>(null);
 
-interface IProps {
-    // resumeData: IResumeBuilder | null;
-    // setResumeData: (resumeData: IResumeBuilder) => void;
-    children: any
-}
+// interface IProps {
+//     details: IResumeBuilder;
+//     setDetails: React.Dispatch<React.SetStateAction<IResumeBuilder>>;
+// }
 
-const ResumeProvider: React.FC<IProps> = ({children}) => {
-    const[details, setDetails] = React.useState<IResumeBuilder | null>(null);
-
-    const setResumeData = (val: IResumeBuilder) => {
-        setDetails(val);
-    }
+const ResumeProvider = ({children}: any) => {
+    const[details, setDetails] = React.useState<IResumeBuilder>({
+        name: {id: '', name: {
+            firstName: '',
+            middleName: '',
+            lastName: ''
+        }},
+        address: {
+            street: '',
+            building: '',
+            city: '',
+            state: '',
+            country: '',
+            postcode: ''
+        },
+        contactDetails: {
+            phoneNumber: undefined,
+            email: undefined,
+            linkedIn: undefined
+        },
+        selfDescription: '',
+        workExperience: [],
+        educationDetails: []
+    });
 
     const value: IResumeContextProps = {
         details,
-        setResumeData
+        setDetails
     }
     return <ResumeContext.Provider value={value}>{children}</ResumeContext.Provider>;
 }
