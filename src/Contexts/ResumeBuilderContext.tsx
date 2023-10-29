@@ -1,17 +1,17 @@
 import React from 'react';
 
-interface IIdName {
+export interface IIdName {
     id: string,
     name: IFullName
 }
 
-interface IFullName {
+export interface IFullName {
     firstName: string,
     middleName?: string,
     lastName?: string
 }
 
-interface IAddressModel {
+export interface IAddressModel {
     building: string | undefined,
     street: string | undefined,
     city: string | undefined,
@@ -20,27 +20,27 @@ interface IAddressModel {
     postcode: string | undefined
 }
 
-interface IContactDetails {
+export interface IContactDetails {
     phoneNumber: string | undefined,
     email: string | undefined,
     linkedIn: string | undefined
 }
 
-interface IWorkExperience {
+export interface IWorkExperience {
     companyName: string,
     fromDate: string,
     toDate: string,
     jobDescription: string | undefined
 }
 
-interface IEducationDetails {
+export interface IEducationDetails {
     institute: string,
-    year: number,
+    year: string,
     degree: string,
     branch: string
 }
 
-interface IResumeBuilder {
+export interface IResumeBuilder {
     name: IIdName,
     address: IAddressModel,
     contactDetails: IContactDetails,
@@ -49,19 +49,14 @@ interface IResumeBuilder {
     educationDetails: IEducationDetails[]
 }
 
-interface IResumeContextProps {
+export interface IResumeContextProps {
     details: IResumeBuilder;
     setDetails: React.Dispatch<React.SetStateAction<IResumeBuilder>>;
 }
 
-const ResumeContext = React.createContext<IResumeContextProps | null>(null);
+export const ResumeContext = React.createContext<IResumeContextProps>({} as any);
 
-// interface IProps {
-//     details: IResumeBuilder;
-//     setDetails: React.Dispatch<React.SetStateAction<IResumeBuilder>>;
-// }
-
-const ResumeProvider = ({children}: any) => {
+export const ResumeProvider = ({children}: any) => {
     const[details, setDetails] = React.useState<IResumeBuilder>({
         name: {id: '', name: {
             firstName: '',
@@ -82,8 +77,8 @@ const ResumeProvider = ({children}: any) => {
             linkedIn: undefined
         },
         selfDescription: '',
-        workExperience: [],
-        educationDetails: []
+        workExperience: [{ companyName: '', fromDate: '01/01/2023', toDate: '02/02/2024', jobDescription: '' }],
+        educationDetails: [{institute: '', year: '',degree: '', branch: ''}]
     });
 
     const value: IResumeContextProps = {
